@@ -16,9 +16,9 @@ use App\Http\Controllers\GifController;
 |
 */
 
-Route::post('/login', [LoginController::class, 'login']);
+Route::post('/login', [LoginController::class, 'login'])->middleware('logger');
 
-Route::middleware('auth:api')->group(function () {
+Route::middleware(['auth:api', 'logger'])->group(function () {
     Route::get('/gif/search', [GifController::class, 'search']);
     Route::get('/gif/{id}', [GifController::class, 'show']);
     Route::post('/gif/save', [GifController::class, 'save']);

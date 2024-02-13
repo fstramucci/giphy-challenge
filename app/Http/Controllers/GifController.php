@@ -19,12 +19,14 @@ class GifController extends Controller
             'offset' => 'integer|max:4999|min:0'
         ]);
 
-        $response = Http::get('https://api.giphy.com/v1/gifs/search', [
+        $queryParams = array_filter([
             'api_key' => env('GIPHY_KEY'),
             'q' => $validatedData['query'],
-            'limit' => $validatedData['limit'],
-            'offset' => $validatedData['offset']
+            'limit' => $validatedData['limit'] ?? null,
+            'offset' => $validatedData['offset'] ?? null,
         ]);
+    
+        $response = Http::get('https://api.giphy.com/v1/gifs/search', $queryParams);
 
         return $response;
     }

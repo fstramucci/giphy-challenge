@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Validator;
+use App\Models\Favourite;
 
 class GifController extends Controller
 {
@@ -45,5 +46,28 @@ class GifController extends Controller
         ]);
 
         return $response;
+    }
+
+    /**
+     * Save favourite gif to user
+     */
+    public function save(Request $request)
+    {
+        $validatedData = $request->validate([
+            'gif_id' => 'required|string|max:64',
+            'alias' => 'required|string|max:128',
+            'user_id' => 'required|numeric|exists:users,id'
+        ]);
+    
+        $favourite = new Favourite;
+        $favourite->gif_id = $validatedData['gif_id'];
+        $favourite->alias = $validatedData['alias'];
+        $favourite->user_id = $validatedData['user_id'];
+    
+        if ($favourite->save()) {
+            return response()->json(['message' => 'Favourite saved successfully'], 200);
+        } else {
+            return response()->json(['message' => 'Failed to save favourite'], 500);
+        }
     }
 }

@@ -1,10 +1,10 @@
-### Deployment for testing
+## Deployment for testing
 
-#### Pre-requisites
+### Pre-requisites
 - Docker
 - Git
 
-#### Instructions
+### Instructions
 ```
 # Clone git repo
 git clone https://github.com/fstramucci/giphy-challenge/
@@ -12,7 +12,7 @@ git clone https://github.com/fstramucci/giphy-challenge/
 # Change directory
 cd giphy-challenge
 
-# Use this command to install the required PHP dependencies
+# Install the required PHP dependencies
 docker run --rm \
     -u "$(id -u):$(id -g)" \
     -v "$(pwd):/var/www/html" \
@@ -43,8 +43,19 @@ cp .env .env.testing
 ./vendor/bin/sail artisan test --env=testing
 
 ```
-**Note:** running tests will refresh the database. If you want to use the seeded user, you need to re-seed the database with 
+**Note:** running tests will refresh the database. If you want to use the seeded user, you need to re-seed the database with:
 ```
 ./vendor/bin/sail artisan db:seed
 ./vendor/bin/sail artisan passport:install
 ```
+
+## Diagrams
+
+### Use cases diagram
+![Use cases diagram](diagrams/UC.png)
+
+### Sequence Diagram
+![Sequence Diagram](diagrams/Seq.png)
+
+### Entity Relationships Diagram
+![Entity Relationships Diagram](diagrams/ERD.png)

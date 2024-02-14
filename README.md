@@ -48,6 +48,8 @@ cp .env .env.testing
 ./vendor/bin/sail artisan db:seed
 ./vendor/bin/sail artisan passport:install
 ```
+## Logging
+All request are logged to `storage/laravel.log`.
 
 ## Diagrams
 

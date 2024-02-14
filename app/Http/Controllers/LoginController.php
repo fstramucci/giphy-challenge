@@ -16,8 +16,8 @@ class LoginController extends Controller
             'password' => 'required',
         ]);
 
-        if (auth()->guard('user')->attempt($validatedData)) {
-            $token = auth()->guard('user')->user()->createToken('default');
+        if (auth()->guard('web')->attempt($validatedData)) {
+            $token = auth()->guard('web')->user()->createToken('default');
 
             return response()->json($token, 200);
         }

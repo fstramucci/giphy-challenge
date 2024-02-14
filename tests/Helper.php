@@ -10,9 +10,5 @@ trait Helper
     {
         \Artisan::call('passport:install --no-interaction');
         \Artisan::call('db:seed');
-        
-        return DB::table('oauth_clients')
-            ->where('personal_access_client','=',true)
-            ->first();
     }
 }

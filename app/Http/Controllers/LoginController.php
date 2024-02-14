@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 class LoginController extends Controller
 {
     /**
-     * Implements a simple email/password login wrapper to the Oauth grant.
+     * Implements a simple email/password login.
      */
     public function login(Request $request)
     {
@@ -16,17 +16,12 @@ class LoginController extends Controller
             'password' => 'required',
         ]);
 
-        $tokenRequest = Request::create('/oauth/token', 'POST', [
-            'grant_type' => 'password',
-            'client_id' => env('PASSPORT_CLIENT_ID'),
-            'client_secret' => env('PASSPORT_CLIENT_SECRET'),
-            'username' => $validatedData['email'],
-            'password' => $validatedData['password'],
-            'scope' => '',
-        ]);
+        if (auth()->guard('user')->attempt($validatedData)) {
+            $token = auth()->guard('user')->user()->createToken('default');
 
-        $response = app()->handle($tokenRequest);
+            return response()->json($token, 200);
+        }
 
-        return $response;
+        return response()->json(['message' => 'Unauthorized'], 401);
     }
 }

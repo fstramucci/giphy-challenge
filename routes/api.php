@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\GifController;
@@ -16,10 +15,10 @@ use App\Http\Controllers\GifController;
 |
 */
 
-Route::post('/login', [LoginController::class, 'login'])->middleware('logger');
+Route::post('/login', [LoginController::class, 'login'])->middleware('logger')->name('login');
 
 Route::middleware(['auth:api', 'logger'])->group(function () {
-    Route::get('/gif/search', [GifController::class, 'search']);
-    Route::get('/gif/{id}', [GifController::class, 'show']);
-    Route::post('/gif/save', [GifController::class, 'save']);
+    Route::get('/gif/search', [GifController::class, 'search'])->name('gif.search');
+    Route::get('/gif/{id}', [GifController::class, 'show'])->name('gif.show');
+    Route::post('/gif/save', [GifController::class, 'save'])->name('gif.save');
 });

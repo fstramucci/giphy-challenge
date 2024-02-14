@@ -48,6 +48,11 @@ cp .env .env.testing
 ./vendor/bin/sail artisan db:seed
 ./vendor/bin/sail artisan passport:install
 ```
+
+## Postman collection
+Get the collection file from [here](giphy-challenge.postman_collection.json).  
+Request the Postman environment file to [stramucci@gmail.com](stramucci@gmail.com).
+
 ## Logging
 All request are logged to `storage/laravel.log`.
 
